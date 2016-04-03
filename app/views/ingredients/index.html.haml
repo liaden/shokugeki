@@ -1,0 +1,4 @@
+%h1 Ingredients
+%ul
+  - @ingredients.each do |ingredient|
+    %li= link_to(ingredient.name, ingredient_path(ingredient))
