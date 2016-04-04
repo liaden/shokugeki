@@ -10,6 +10,9 @@
   %body
     .container-fluid
       = render 'shared/navbar'
-      .notice= notice
-      .alert= alert
+    .container
+      - if notice.present?
+        .notice= notice
+      - if alert.present?
+        .alert= alert
       = yield

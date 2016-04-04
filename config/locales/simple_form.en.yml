@@ -10,6 +10,12 @@ en:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
+    errors:
+      recipe:
+        no_ingredients: "Please specify at least one ingredient"
+    labels:
+      recipe:
+        ingredients_csv: "Ingredient names (comma separated):"
     # Examples
     # labels:
     #   defaults:

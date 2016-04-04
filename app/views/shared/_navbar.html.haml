@@ -5,6 +5,8 @@
 
     .collapse.navbar-collapse#bs-example-navbar-collapse-1
       %ul.nav.navbar-nav
+        %li{class: controller.controller_name == 'recipes' ? 'active' : ''}
+          = link_to 'Recipes', '#'
         %li{class: controller.controller_name == 'ingredients' ? 'active' : ''}
           = link_to 'Ingredients', ingredients_path
       %form.navbar-form.navbar-left{role: "search"}
