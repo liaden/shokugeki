@@ -4,6 +4,6 @@ class IngredientsController < ApplicationController
   end
 
   def index
-    @ingredients = Ingredient.order(params[:order] || 'name ASC')
+    @ingredients = Ingredient.sanitized_order(params[:order])
   end
 end

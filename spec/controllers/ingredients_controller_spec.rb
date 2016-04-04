@@ -12,11 +12,22 @@ describe IngredientsController do
       expect(response.body).to include('chicken')
     end
 
-    it "orders them by name" do
-      get :index
+    describe "ordering" do
+      it "defaults to name" do
+        get :index
 
-      trailing_text = response.body.partition('chicken').last
-      expect(trailing_text).to include('pepper')
+        trailing_text = response.body.partition('chicken').last
+        expect(trailing_text).to include('pepper')
+      end
+
+      it "passes uses specified order" do
+        pepper.recipes.create(attributes_for(:recipe))
+
+        get :index, order: :popularity
+
+        trailing_text = response.body.partition('pepper').last
+        expect(trailing_text).to include('chicken')
+      end
     end
   end
 
