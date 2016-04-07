@@ -43,6 +43,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'opal-rspec-rails', github: 'opal/opal-rspec-rails'
   gem 'factory_girl_rails'
+  gem 'shoulda'
 end
 
 group :development do

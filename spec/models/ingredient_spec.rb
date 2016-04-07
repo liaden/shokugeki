@@ -5,9 +5,9 @@ describe Ingredient do
     expect(ingredient).to be_an_instance_of(Ingredient)
   end
 
-  it "requires a name" do
-    expect(build(:ingredient, name: nil)).to_not be_valid
-  end
+  it { is_expected.to validate_presence_of :name }
+  it { is_expected.to have_many :recipe_ingredients }
+  it { is_expected.to have_many :recipes }
 
   describe "#pairings" do
     let(:ingredient) { create(:ingredient, name: 'm') }

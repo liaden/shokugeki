@@ -2,6 +2,9 @@ describe IngredientPairing do
   let(:ingredient_a)  { build(:ingredient, name: 'a') }
   let(:ingredient_b) { build(:ingredient, name: 'b') }
 
+  it { is_expected.to belong_to(:first_ingredient) }
+  it { is_expected.to belong_to(:second_ingredient) }
+
   it "requires first_ingredient.name < second_ingredient.name" do
     expect(
       build(:ingredient_pairing, first_ingredient: ingredient_b, second_ingredient: ingredient_a)

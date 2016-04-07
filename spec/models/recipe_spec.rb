@@ -4,9 +4,7 @@ describe Recipe do
   end
 
   describe "#name" do
-    it "cannot be nil" do
-      expect(build(:recipe, name: nil)).to_not be_valid
-    end
+    it { is_expected. to validate_presence_of :name }
 
     it "cannot be empty" do
       expect(build(:recipe, name: '')).to_not be_valid
@@ -14,16 +12,18 @@ describe Recipe do
   end
 
   describe "#url" do
-    it "cannot be nil" do
-       expect(build(:recipe, url: nil)).to_not be_valid
-    end
+    it { is_expected.to validate_presence_of :url }
 
-    it "cannot be ''" do
+    it "cannot be empty" do
       expect(build(:recipe, url: '')).to_not be_valid
     end
   end
 
+  it { is_expected.to have_many(:ingredients) }
+
   describe "#recipe_ingredients" do
+    it { is_expected.to have_many(:recipe_ingredients) }
+
     it "destroys associated recipe_ingredients on delete" do
       recipe = create(:recipe, :with_ingredient)
 
