@@ -5,7 +5,18 @@ class Ingredient < ActiveRecord::Base
   has_many :recipe_ingredients
   has_many :recipes, through: :recipe_ingredients
 
-  has_many :ingredient_pairings
+  def ingredient_pairings
+    IngredientPairing.with_ingredient(self)
+  end
+
+  def pairings(ordering: 'created_at')
+    ingredient_pairings
+      .includes(:first_ingredient, :second_ingredient)
+      .order(ordering)
+      .map do |pair|
+        pair.first_ingredient.id == id ? pair.second_ingredient : pair.first_ingredient
+      end
+  end
 
   validates :name, presence: true
 
@@ -21,7 +32,18 @@ class Ingredient < ActiveRecord::Base
     end
   end
 
+  def self.mass_produce(*names)
+    names.map { |name| Ingredient.find_or_create_by(name: name) }
+  end
+
   def recipes_count
     recipe_ingredients_count
   end
+
+  private
+
+  has_many :first_ingredients,  through: :ingredient_pairings
+  has_many :second_ingredients, through: :ingredient_pairings
+
+  has_many :pairings
 end

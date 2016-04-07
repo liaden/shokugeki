@@ -8,6 +8,28 @@ describe IngredientPairing do
     ).to be_invalid
   end
 
+  describe ".with_ingredient" do
+    let(:ingredient) { create(:ingredient, name: 'm') }
+    let!(:paired_as_first)  { create(:ingredient_pairing, first_ingredient: ingredient, second_ingredient: create(:ingredient, name: 'z')) }
+    let!(:paired_as_second) { create(:ingredient_pairing, first_ingredient: create(:ingredient, name: 'a'), second_ingredient: ingredient) }
+
+    it "has two ingredient_pairings" do
+      expect(IngredientPairing.with_ingredient(ingredient)).to contain_exactly(paired_as_first, paired_as_second)
+    end
+  end
+
+  describe ".with_ingredients" do
+    let(:pairing) { create(:ingredient_pairing) }
+    let(:ingredient1) { pairing.first_ingredient }
+    let(:ingredient2) { pairing.second_ingredient }
+
+    it "returns same pairing regardless of order" do
+      expect(
+        IngredientPairing.with_ingredients(ingredient1, ingredient2).id
+      ).to eq IngredientPairing.with_ingredients(ingredient2, ingredient1).id
+    end
+  end
+
   describe "#ingredients=" do
     let(:pairing) { build(:ingredient_pairing, ingredients: [ingredient_b, ingredient_a]) }
 

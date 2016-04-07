@@ -12,4 +12,9 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :ingredient_pairing_empty, parent: :ingredient_pairing do
+    first_ingredient nil
+    second_ingredient nil
+  end
 end

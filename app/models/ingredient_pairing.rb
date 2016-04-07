@@ -1,6 +1,6 @@
 class IngredientPairing < ActiveRecord::Base
-  belongs_to :first_ingredient,   class_name: 'Ingredient', inverse_of: :ingredient_pairings
-  belongs_to :second_ingredient,  class_name: 'Ingredient', inverse_of: :ingredient_pairings
+  belongs_to :first_ingredient,   class_name: 'Ingredient'
+  belongs_to :second_ingredient,  class_name: 'Ingredient'
 
   validates_each :ingredients do |record, attr, value|
     if record.first_ingredient && record.second_ingredient
@@ -11,7 +11,7 @@ class IngredientPairing < ActiveRecord::Base
   end
 
   scope :with_ingredient, ->(ingredient) { where('first_ingredient_id = ? OR second_ingredient_id = ?', ingredient.id, ingredient.id) }
-  scope :with_ingredients, ->(ing1, ing2) { where(first_ingredient_id: [ing1.id, ing2.id], second_ingredient_id: [ing1.id, ing2.id]) }
+  scope :with_ingredients, ->(ing1, ing2) { where(first_ingredient_id: [ing1.id, ing2.id], second_ingredient_id: [ing1.id, ing2.id]).first }
 
   def recompute_occurrences
     raise "Both ingredients must be persisted" unless first_ingredient_id && second_ingredient_id

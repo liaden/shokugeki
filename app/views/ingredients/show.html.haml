@@ -1,1 +1,6 @@
-= @ingredient.name
+%h1= @ingredient.name
+%p= "Used in #{@ingredient.recipes.count} recipes."
+%p= "Is paired with #{@ingredient.ingredient_pairings.count} other ingredients. Most popular pairings are:"
+%ul
+  - @ingredient.pairings(ordering: :occurrences).take(20).each do |pair|
+    %li= pair.name

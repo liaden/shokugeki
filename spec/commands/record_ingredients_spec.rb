@@ -2,7 +2,7 @@ describe RecordIngredients do
   let(:command) { RecordIngredients.run!(recipe: recipe, ingredients: ingredients) }
   let!(:recipe) { create(:recipe, ingredients: old_ingredients) }
   let(:old_ingredients) { [ create(:ingredient, name: 'ingredient_1')] }
-  let(:ingredients) { ['ingredient_1'] }
+  let(:ingredients) { ['ingredient_1', 'ingredient_2'] }
 
   context "without a recipe" do
     let(:recipe) { nil }
@@ -25,6 +25,10 @@ describe RecordIngredients do
 
     it "creates new ingredients" do
       expect{command}.to change{Ingredient.count}.by(ingredients.size)
+    end
+
+    it "creates ingredient pairings" do
+      expect{command}.to change{IngredientPairing.count}.by(1)
     end
   end
 

@@ -9,6 +9,16 @@ describe Ingredient do
     expect(build(:ingredient, name: nil)).to_not be_valid
   end
 
+  describe "#pairings" do
+    let(:ingredient) { create(:ingredient, name: 'm') }
+    let!(:other1)  { create(:ingredient_pairing, first_ingredient: ingredient, second_ingredient: create(:ingredient, name: 'z')).second_ingredient }
+    let!(:other2) { create(:ingredient_pairing, first_ingredient: create(:ingredient, name: 'a'), second_ingredient: ingredient).first_ingredient }
+
+    it "finds all paired ingredients" do
+      expect(ingredient.pairings).to contain_exactly(other1, other2)
+    end
+  end
+
   describe "#recipes_count" do
     it "is zero on new ingredient" do
       expect(build(:ingredient).recipes_count).to be 0

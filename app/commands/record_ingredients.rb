@@ -11,10 +11,14 @@ class RecordIngredients < Mutations::Command
   end
 
   def execute
+    previous_ingredients = recipe.ingredients
+
     Recipe.transaction do
       remove_old_unused_ingredients
       recipe.ingredients = create_added_ingredients
       recipe.save!
+
+      RecordPairings.run!(recipe: recipe, previous_ingredients: previous_ingredients.to_a)
     end
   end
 
