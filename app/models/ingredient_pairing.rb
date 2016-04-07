@@ -12,6 +12,11 @@ class IngredientPairing < ActiveRecord::Base
 
   scope :with_ingredient, ->(ingredient) { where('first_ingredient_id = ? OR second_ingredient_id = ?', ingredient.id, ingredient.id) }
   scope :with_ingredients, ->(ing1, ing2) { where(first_ingredient_id: [ing1.id, ing2.id], second_ingredient_id: [ing1.id, ing2.id]).first }
+  scope :including_ingredients, ->() { includes(:first_ingredient).includes(:second_ingredient) }
+  scope :by_names, ->(names) {
+    joins(:first_ingredient).joins(:second_ingredient)
+      .where('"ingredients"."name" IN (?) OR "second_ingredients_ingredient_pairings"."name" IN (?)', Array(names), Array(names))
+  }
 
   def recompute_occurrences
     raise "Both ingredients must be persisted" unless first_ingredient_id && second_ingredient_id

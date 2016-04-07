@@ -30,6 +30,28 @@ describe IngredientPairing do
     end
   end
 
+  describe ".by_names" do
+    let!(:pairing) { create(:ingredient_pairing) }
+    let!(:other_pairing) { create(:ingredient_pairing) }
+
+    let(:ingredient1) { pairing.first_ingredient }
+    let(:ingredient2) { pairing.second_ingredient }
+
+    it "matches against first_ingredient" do
+      expect(IngredientPairing.by_names(ingredient1.name)).to contain_exactly(pairing)
+    end
+
+    it "matches against second_ingredient" do
+      expect(IngredientPairing.by_names(ingredient2.name)).to contain_exactly(pairing)
+    end
+
+    it "matches multipes" do
+      expect(
+        IngredientPairing.by_names([ingredient1.name, other_pairing.second_ingredient.name])
+      ).to contain_exactly(pairing, other_pairing)
+    end
+  end
+
   describe "#ingredients=" do
     let(:pairing) { build(:ingredient_pairing, ingredients: [ingredient_b, ingredient_a]) }
 
