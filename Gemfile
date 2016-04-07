@@ -7,7 +7,7 @@ gem 'friendly_id'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'opal-rails', github: 'opal/opal-rails'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -41,6 +41,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
 
   gem 'rspec-rails'
+  gem 'opal-rspec-rails', github: 'opal/opal-rspec-rails'
   gem 'factory_girl_rails'
 end
 

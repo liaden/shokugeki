@@ -1,0 +1,1 @@
+D3 = Native(`window.d3`)
