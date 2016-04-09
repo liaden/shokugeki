@@ -42,6 +42,10 @@ class IngredientPairing < ActiveRecord::Base
     [first_ingredient, second_ingredient]
   end
 
+  def data
+    [first_ingredient.name, second_ingredient.name, occurrences]
+  end
+
   private
 
   def all_recipe_ids_for(ingredient_id)

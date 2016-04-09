@@ -1,4 +1,3 @@
-Rails.logger.debug "Loading schema"
 [
   Recipe.create!(
     name: 'Roast Chicken with Spring Vegetables',
@@ -74,4 +73,6 @@ Rails.logger.debug "Loading schema"
 ].each do |recipe|
   RecordPairings.run!(recipe: recipe)
 end
-Rails.logger.debug "Finished loading schema"
+
+SearchIngredient.create!(ingredients_csv: "salt")
+SearchIngredient.create!(ingredients_csv: "olive oil,pepper")

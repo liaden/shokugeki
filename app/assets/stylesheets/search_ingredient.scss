@@ -1,0 +1,24 @@
+// Place all the styles related to the SearchIngredient controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.link {
+  stroke: #000;
+  stroke-width: 1.5px;
+  stroke-opacity: .6;
+}
+
+.node {
+  cursor: move;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+.node > text {
+  stroke: none;
+  font-weight: bold;
+}
+
+.node.fixed {
+  stroke: #0f0;
+  stroke-width: 1px;
+}

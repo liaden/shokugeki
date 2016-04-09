@@ -1,0 +1,7 @@
+%h1 Ingredients Graph
+- missing_ingredients = @search.missing_ingredients
+- if missing_ingredients.any?
+  %p
+    Missing
+    = missing_ingredients.join(',')
+#ingredients-graph
