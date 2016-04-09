@@ -1,5 +1,0 @@
-require 'jquery'
-require 'bootstrap-sprockets'
-require 'opal_ujs'
-require 'turbolinks'
-require_tree '.'
