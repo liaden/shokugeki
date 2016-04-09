@@ -3,3 +3,7 @@ services:
 
 before_script:
   - psql -c 'create database shokugeki_test;' -U postgres
+
+addons:
+  code_climate:
+    repo_token: 56e0bc6c65a02b0382fbc07b14ebecd20ecb3272e31bcdb567c844a7e2555f7f
