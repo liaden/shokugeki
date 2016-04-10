@@ -9,7 +9,7 @@
           = link_to 'Recipes', '#'
         %li{class: controller.controller_name == 'ingredients' ? 'active' : ''}
           = link_to 'Ingredients', ingredients_path
-      %form.navbar-form.navbar-left{role: "search"}
+      = simple_form_for(SearchIngredient.new, html: { class: 'navbar-form navbar-left', role: "search"}) do |f|
         .form-group
-          %input.form-control{ type: "text", placeholder: "bacon,bourbon,etc" }
-        %button.btn.btn-default{type: "submit"} Submit
+          = f.input :ingredients_csv, as: :string, label: false, placeholder: "bacon,bourbon,etc", html: { class: 'form-control' }
+        = f.submit "Submit", class: 'btn btn-default'
