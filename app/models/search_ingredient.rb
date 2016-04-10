@@ -5,8 +5,8 @@ class SearchIngredient < ActiveRecord::Base
     ingredients_csv.split(',')
   end
 
-  def ingredient_names=(values)
-    ingredients.map(&:strip).join(',')
+  def hidden_ingredient_names
+    hidden_ingredients_csv.to_s.split(',')
   end
 
   def missing_ingredients
@@ -17,12 +17,16 @@ class SearchIngredient < ActiveRecord::Base
     @ingredients = Ingredient.where(name: ingredient_names)
   end
 
+  def min_occurrences
+    occurrences_minimum || 1
+  end
+
   def graph
     IngredientGraph.new(self)
   end
 
   def reload
-    super
     @ingredients = nil
+    super
   end
 end

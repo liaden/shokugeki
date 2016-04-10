@@ -16,22 +16,12 @@ en:
     labels:
       recipe:
         ingredients_csv: "Ingredient names (comma separated):"
-    # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'
+      search_ingredient:
+        ingredients_csv: "Searched ingredients (comma separated):"
+        hidden_ingredients_csv: "Hidden ingredients (comman separated):"
+        occurrences_minimum: "Min. pairing occurrences"
+    hints:
+      search_ingredient:
+        #hidden_ingredients_csv: "Filters ingredients and connections from the graph. Useful for noisey items such as butter and salt."
+        #occurrences_minimum: "Certain ingredients are infrequently added to recipes and cause noisey pairings. Increase to simplify the graph."
+

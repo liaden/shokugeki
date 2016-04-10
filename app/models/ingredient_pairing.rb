@@ -2,7 +2,7 @@ class IngredientPairing < ActiveRecord::Base
   belongs_to :first_ingredient,   class_name: 'Ingredient'
   belongs_to :second_ingredient,  class_name: 'Ingredient'
 
-  validates_each :ingredients do |record, attr, value|
+  validates_each :ingredients do |record|
     if record.first_ingredient && record.second_ingredient
       if record.first_ingredient.name.to_s > record.second_ingredient.name.to_s
         record.errors.add(:base, "Paired ingredients are applied out of order")
@@ -32,14 +32,18 @@ class IngredientPairing < ActiveRecord::Base
     raise ArgumentError.new("Wrong numer of ingredients for pairing: #{values.size}") if values.size != 2
 
     if values.first.name < values.second.name
-      first_ingredient, second_ingredient = *values
+      self.first_ingredient, self.second_ingredient = *values
     else
-      second_ingredient, first_ingredient = *values
+      self.second_ingredient, self.first_ingredient = *values
     end
   end
 
   def ingredients
     [first_ingredient, second_ingredient]
+  end
+
+  def ingredient_names
+    [first_ingredient.name, second_ingredient.name]
   end
 
   def data
@@ -53,7 +57,7 @@ class IngredientPairing < ActiveRecord::Base
   end
 
   def shared_recipe_ids
-    shared_recipe_ids = all_recipe_ids_for(first_ingredient_id)
+    all_recipe_ids_for(first_ingredient_id)
       .to_set.intersection(all_recipe_ids_for(second_ingredient_id))
   end
 end
