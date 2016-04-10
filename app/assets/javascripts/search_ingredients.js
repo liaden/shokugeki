@@ -1,5 +1,5 @@
 function render_graph(container, nodes, links) {
-  var width = 960,
+  var width = 1200,
     height = 500;
 
   var color = d3.scale.category20();

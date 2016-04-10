@@ -8,4 +8,8 @@
 
 %hr
 
-= render partial: 'form', locals: { title: 'Refine Search' }
+.row
+  .col-md-8
+    = render partial: 'form', locals: { title: 'Refine Search' }
+  .col-md-4
+    = render 'how_to_read_graph'
