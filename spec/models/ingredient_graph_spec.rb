@@ -27,6 +27,46 @@ describe IngredientGraph do
 
       expect(graph.edges).to_not include hidden_edge
     end
+
+    it "does not include edges below minimum_occurrences threshold" do
+      search.occurrences_minimum = 5
+
+      expect(graph.edges).to be_empty
+    end
+
+    context "including auxiliary edges" do
+      let(:searched_ingredient) { create(:ingredient, name: 'a.searched') }
+      let(:other1) { create(:ingredient, name: 'other1') }
+      let(:other2) { create(:ingredient, name: 'other2') }
+
+      let!(:pairing1) { create(:ingredient_pairing, occurrences: 1, ingredients: [searched_ingredient, other1]) }
+      let!(:pairing2) { create(:ingredient_pairing, occurrences: 1, ingredients: [searched_ingredient, other2]) }
+      let!(:auxiliary_edge) { create(:ingredient_pairing, occurrences: 2, ingredients: [other1, other2]) }
+
+      let(:search) { create(:search_ingredient, ingredients_csv: searched_ingredient.name, include_auxiliary_edges: true) }
+
+      it "includes qualify auxiliary edges" do
+        expect(graph.edges).to contain_exactly(pairing1, pairing2, auxiliary_edge)
+      end
+
+      it "does not include hidden ingredinets auxiliary edges" do
+        search.hidden_ingredients_csv = other2.name
+
+        expect(graph.edges).to_not include auxiliary_edge
+      end
+
+      it "does not include auxiliary edges with below minimum occurrences threshold" do
+        auxiliary_edge.update_attributes(occurrences: 0)
+
+        expect(graph.edges).to_not include auxiliary_edge
+      end
+
+      it "does not pick up dangling edges" do
+        dangling = create(:ingredient_pairing, occurrences: 1, ingredients: [other2, create(:ingredient)])
+
+        expect(graph.edges).to_not include dangling
+      end
+    end
   end
 
   describe "#edge_data" do

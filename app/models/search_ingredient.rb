@@ -29,4 +29,8 @@ class SearchIngredient < ActiveRecord::Base
     @ingredients = nil
     super
   end
+
+  def include_auxiliary_edges?
+    include_auxiliary_edges
+  end
 end

@@ -10,8 +10,12 @@
     .col-md-4
       = f.input :hidden_ingredients_csv, as: :string
     .col-md-1
+
+  .row
     .col-md-2
       = f.input :occurrences_minimum
+    .col-md-2
+      = f.input :include_auxiliary_edges
 
   .row
     .col-md-4

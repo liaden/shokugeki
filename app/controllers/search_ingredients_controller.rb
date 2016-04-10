@@ -31,10 +31,11 @@ class SearchIngredientsController < ApplicationController
 
   def set_default_params
     params[:search_ingredient][:hidden_ingredients_csv] ||=  ''
+    params[:search_ingredient][:include_auxiliary_edges] ||= false
   end
 
   def search_params
-    params.require(:search_ingredient).permit(:ingredients_csv, :hidden_ingredients_csv, :occurrences_minimum)
+    params.require(:search_ingredient).permit(:ingredients_csv, :hidden_ingredients_csv, :occurrences_minimum, :include_auxiliary_edges)
   end
 
   def gon_data_and_response(graph)

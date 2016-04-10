@@ -2,9 +2,18 @@ function render_graph(container, nodes, links) {
   var width = 960,
     height = 500;
 
-  color = d3.scale.category20();
+  var color = d3.scale.category20();
+  function line_width(d) { return d.occurrences; };
 
-  var force = d3.layout.force()
+   function line_class(d) {
+     if(d.link_type == 'auxiliary') {
+       return 'link auxiliary';
+     } else {
+       return 'link primary';
+     };
+   };
+
+  var force = d3.layout.force();
 
   var drag = force.drag()
       .on("dragstart", dragstart);
@@ -20,14 +29,16 @@ function render_graph(container, nodes, links) {
      .nodes(nodes)
      .links(links)
      .size([width, height])
-     .charge(-1000)
+     .charge(-1100)
      .linkDistance(80)
      .on("tick", tick)
      .start();
 
    link = link.data(links)
-     .enter().append("line")
-     .attr("class", "link");
+     .enter().append("g")
+     .attr("class", line_class)
+     .append("line")
+     .attr("stroke-width", function(d) { return line_width(d)+"px"; });
 
    node = svg.selectAll(".node")
      .data(nodes)

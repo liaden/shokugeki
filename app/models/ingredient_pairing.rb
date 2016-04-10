@@ -12,6 +12,7 @@ class IngredientPairing < ActiveRecord::Base
 
   scope :with_ingredient, ->(ingredient) { where('first_ingredient_id = ? OR second_ingredient_id = ?', ingredient.id, ingredient.id) }
   scope :with_ingredients, ->(ing1, ing2) { where(first_ingredient_id: [ing1.id, ing2.id], second_ingredient_id: [ing1.id, ing2.id]).first }
+  scope :within_ingredients, ->(ingredients) { where(first_ingredient_id: ingredients.map(&:id), second_ingredient_id: ingredients.map(&:id)) }
   scope :including_ingredients, ->() { includes(:first_ingredient).includes(:second_ingredient) }
   scope :by_names, ->(names) {
     joins(:first_ingredient).joins(:second_ingredient)

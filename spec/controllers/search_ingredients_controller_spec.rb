@@ -36,17 +36,27 @@ describe SearchIngredientsController do
   describe "#update" do
     before { search.save! }
 
+    def run(sub_params)
+      post :update, id: search.id, search_ingredient: sub_params
+    end
+
     it "saves occurrences_minimum" do
-      post :update, id: search.id, search_ingredient: { occurrences_minimum: 5 }
+      run occurrences_minimum: 5
 
       search.reload
       expect(search.reload.occurrences_minimum).to eq 5
     end
 
      it "saves hidden_ingredients" do
-       post :update, id: search.id, search_ingredient: { hidden_ingredients_csv: "a,b" }
+       run hidden_ingredients_csv: "a,b"
 
        expect(search.reload.hidden_ingredients_csv).to eq "a,b"
      end
+
+    it "saves include_auxiliary_edges" do
+      run include_auxiliary_edges: !search.include_auxiliary_edges
+
+      expect(search.include_auxiliary_edges).to_not eq search.reload.include_auxiliary_edges
+    end
   end
 end

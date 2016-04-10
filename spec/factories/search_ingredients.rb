@@ -3,6 +3,7 @@ FactoryGirl.define do
     ingredients_csv "searched_ingredient"
     hidden_ingredients_csv "hidden_ingredient"
     occurrences_minimum 1
+    include_auxiliary_edges false
 
     trait :with_ingredient do
       after(:create) do |search|
