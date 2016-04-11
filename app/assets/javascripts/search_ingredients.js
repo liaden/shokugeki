@@ -77,6 +77,12 @@ function render_graph(container, nodes, links) {
   }
 }
 
-$().ready(function() {
-  render_graph(d3.select('#ingredients-graph'), gon.nodes, gon.edges);
-})
+function create_graph() {
+  var container = d3.select('#ingredients-graph')
+  if(container[0][0] != null) {
+    render_graph(d3.select('#ingredients-graph'), gon.nodes, gon.edges);
+  };
+}
+
+$().ready(create_graph);
+$().on('page:load', create_graph);
