@@ -3,24 +3,6 @@
 
 ## README
 
-Things you may want to cover:
+Shokugeki keeps recipes, ingredients, and pairings in a database to be searched. The resulting searches show the relationships between different ingredients with some controls to tweak the graph.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
+This is built using d3 for the graph visualizations and postgresql for the database.
