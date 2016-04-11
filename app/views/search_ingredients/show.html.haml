@@ -4,12 +4,5 @@
   %p
     Missing
     = missing_ingredients.join(',')
-#ingredients-graph
 
-%hr
-
-.row
-  .col-md-8
-    = render partial: 'form', locals: { title: 'Refine Search' }
-  .col-md-4
-    = render 'how_to_read_graph'
+= render partial: 'shared/food_graph', locals: { search: @search }

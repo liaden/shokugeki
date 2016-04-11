@@ -4,3 +4,5 @@
 %ul
   - @ingredient.pairings(ordering: :occurrences).take(20).each do |pair|
     %li= pair.name
+
+= render partial: 'shared/food_graph', locals: { search: @search }

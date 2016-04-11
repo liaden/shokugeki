@@ -1,0 +1,11 @@
+%h1 Recipes
+%table.table.table-condensed.table-hover
+  %tr
+    %th Name
+    %th Recipe Details
+    %th Graph View
+  - @recipes.each do |recipe|
+    %tr
+      %td= recipe.name
+      %td= link_to 'on foodnetwork', recipe.url
+      %td= link_to 'See recipe graph', recipe_path(recipe)

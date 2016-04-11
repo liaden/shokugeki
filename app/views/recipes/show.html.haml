@@ -1,0 +1,6 @@
+%h1= @recipe.name
+%p= link_to 'Food Network', @recipe.url
+
+%hr
+
+= render partial: 'shared/food_graph', locals: { search: @search }

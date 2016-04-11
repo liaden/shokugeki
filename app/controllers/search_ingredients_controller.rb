@@ -6,25 +6,22 @@ class SearchIngredientsController < ApplicationController
   end
 
   def create
-    @search = SearchIngredient.create!(search_params)
-    @graph = @search.graph
+    graph_widget_data(SearchIngredient.create!(search_params))
 
-    gon_data_and_response(@graph)
+    render :show
   end
 
   def show
-    @search = SearchIngredient.find(params[:id])
-    @graph = @search.graph
-
-    gon_data_and_response(@graph)
+    graph_widget_data(SearchIngredient.find(params[:id]))
   end
 
   def update
     @search = SearchIngredient.find(params[:id])
     @search.update_attributes!(search_params)
-    @graph = @search.graph
 
-    gon_data_and_response(@graph)
+    graph_widget_data(@search)
+
+    render :show
   end
 
   private
@@ -36,12 +33,5 @@ class SearchIngredientsController < ApplicationController
 
   def search_params
     params.require(:search_ingredient).permit(:ingredients_csv, :hidden_ingredients_csv, :occurrences_minimum, :include_auxiliary_edges)
-  end
-
-  def gon_data_and_response(graph)
-    gon.edges = graph.edge_data
-    gon.nodes = graph.node_data
-
-    render :show
   end
 end

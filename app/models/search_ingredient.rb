@@ -33,4 +33,8 @@ class SearchIngredient < ActiveRecord::Base
   def include_auxiliary_edges?
     include_auxiliary_edges
   end
+  
+  def self.best_hidden_ingredients
+    "salt,butter,egg"
+  end
 end

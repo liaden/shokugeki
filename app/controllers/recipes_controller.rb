@@ -5,6 +5,8 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+
+    recipe_graph_widget
   end
 
   def new
@@ -16,10 +18,11 @@ class RecipesController < ApplicationController
     result = RecordIngredients.run(recipe: @recipe, ingredients: ingredients)
 
     if result.success?
-      render 'index'
+      recipe_graph_widget
+      render:show
     else
       copy_ingredients_error(result)
-      render 'new'
+      render :new
     end
   end
 
@@ -44,5 +47,10 @@ class RecipesController < ApplicationController
     if error_symbol = command_result.errors["ingredients"].try(:symbolic)
       @recipe.errors.add(:ingredients_csv, I18n.t(error_symbol, scope: "simple_form.errors.recipe"))
     end
+  end
+
+  def recipe_graph_widget
+    graph_widget_data(
+      SearchIngredient.new(ingredients_csv: @recipe.ingredients_csv, hidden_ingredients_csv: SearchIngredient.best_hidden_ingredients))
   end
 end
