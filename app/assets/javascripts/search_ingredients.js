@@ -28,6 +28,7 @@ function render_graph(container, nodes, links) {
    force
      .nodes(nodes)
      .links(links)
+     .gravity(0.4)
      .size([width, height])
      .charge(-1100)
      .linkDistance(80)
@@ -78,10 +79,7 @@ function render_graph(container, nodes, links) {
 }
 
 function create_graph() {
-  var container = d3.select('#ingredients-graph')
-  if(container[0][0] != null) {
-    render_graph(d3.select('#ingredients-graph'), gon.nodes, gon.edges);
-  };
+  render_graph(d3.select('#ingredients-graph'), gon.nodes, gon.edges);
 }
 
 $().ready(create_graph);
