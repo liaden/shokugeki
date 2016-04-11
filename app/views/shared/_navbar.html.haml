@@ -9,7 +9,10 @@
           = link_to 'Recipes', recipes_path
         %li{class: controller.controller_name == 'ingredients' ? 'active' : ''}
           = link_to 'Ingredients', ingredients_path
+        %li
+          = link_to 'Advanced Search', new_search_ingredient_path
       = simple_form_for(SearchIngredient.new, html: { class: 'navbar-form navbar-left', role: "search"}) do |f|
         .form-group
           = f.input :ingredients_csv, as: :string, label: false, placeholder: "bacon,bourbon,etc", html: { class: 'form-control' }
+          = f.input :hidden_ingredients_csv, as: :hidden, input_html: { value: SearchIngredient.best_hidden_ingredients }
         = f.submit "Submit", class: 'btn btn-default'

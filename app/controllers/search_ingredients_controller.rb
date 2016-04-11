@@ -2,7 +2,7 @@ class SearchIngredientsController < ApplicationController
   before_action :set_default_params, only: [:create, :update]
 
   def new
-    @search = SearchIngredient.new
+    @search = SearchIngredient.new(hidden_ingredients_csv: SearchIngredient.best_hidden_ingredients)
   end
 
   def create
